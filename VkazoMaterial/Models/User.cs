@@ -11,8 +11,10 @@ namespace VkazoMaterial.Models
         public string Surname { get; set; }
         [DisplayName("Nachname")]
         public string Name { get; set; }
+        public int RankId { get; set; }
         [DisplayName("Rang")]
-        public Rank Rank { get; set; }
+        public virtual Rank Rank { get; set; }
+        [DisplayName("Berechtigt")]
         public bool IsAuthorized { get; set; }
     }
 }

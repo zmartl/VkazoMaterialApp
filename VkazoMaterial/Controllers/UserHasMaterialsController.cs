@@ -38,6 +38,8 @@ namespace VkazoMaterial.Controllers
         // GET: UserHasMaterials/Create
         public ActionResult Create()
         {
+            ViewBag.UserId = new SelectList(db.Users, "Id", "Contraction");
+            ViewBag.MaterialId = new SelectList(db.Materials, "Id", "Serialnumber");
             return View();
         }
 
@@ -50,11 +52,14 @@ namespace VkazoMaterial.Controllers
         {
             if (ModelState.IsValid)
             {
+                userHasMaterial.Material = db.Materials.Find(userHasMaterial.MaterialId);
+                userHasMaterial.User = db.Users.Find(userHasMaterial.UserId);
                 db.UserHasMaterials.Add(userHasMaterial);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.UserId = new SelectList(db.Users, "Id", "Contraction", userHasMaterial.User.Id);
+            ViewBag.MaterialId = new SelectList(db.Grades, "Id", "Serialnumber", userHasMaterial.Material.Id);
             return View(userHasMaterial);
         }
 
@@ -70,6 +75,8 @@ namespace VkazoMaterial.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.UserId = new SelectList(db.Users, "Id", "Contraction", userHasMaterial.User.Id);
+            ViewBag.MaterialId = new SelectList(db.Grades, "Id", "Serialnumber", userHasMaterial.Material.Id);
             return View(userHasMaterial);
         }
 
@@ -82,10 +89,14 @@ namespace VkazoMaterial.Controllers
         {
             if (ModelState.IsValid)
             {
+                userHasMaterial.Material = db.Materials.Find(userHasMaterial.MaterialId);
+                userHasMaterial.User = db.Users.Find(userHasMaterial.UserId);
                 db.Entry(userHasMaterial).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.UserId = new SelectList(db.Users, "Id", "Contraction", userHasMaterial.User.Id);
+            ViewBag.MaterialId = new SelectList(db.Grades, "Id", "Serialnumber", userHasMaterial.Material.Id);
             return View(userHasMaterial);
         }
 

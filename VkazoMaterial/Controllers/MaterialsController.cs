@@ -38,6 +38,7 @@ namespace VkazoMaterial.Controllers
         // GET: Materials/Create
         public ActionResult Create()
         {
+            ViewBag.SizeId = new SelectList(db.Sizes, "Id", "Description");
             return View();
         }
 
@@ -46,15 +47,16 @@ namespace VkazoMaterial.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,SerialNumber,Description")] Material material)
+        public ActionResult Create([Bind(Include = "Id,SerialNumber,Description,SizeId")] Material material)
         {
             if (ModelState.IsValid)
             {
+                material.Size = db.Sizes.Find(material.SizeId);
                 db.Materials.Add(material);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.SizeId = new SelectList(db.Sizes, "Id", "Description", material.Size.Id);
             return View(material);
         }
 
@@ -70,6 +72,7 @@ namespace VkazoMaterial.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.SizeId = new SelectList(db.Sizes, "Id", "Description", material.Size.Id);
             return View(material);
         }
 
@@ -78,14 +81,16 @@ namespace VkazoMaterial.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,SerialNumber,Description")] Material material)
+        public ActionResult Edit([Bind(Include = "Id,SerialNumber,Description,SizeId")] Material material)
         {
             if (ModelState.IsValid)
             {
+                material.Size = db.Sizes.Find(material.SizeId);
                 db.Entry(material).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.SizeId = new SelectList(db.Sizes, "Id", "Description", material.Size.Id);
             return View(material);
         }
 

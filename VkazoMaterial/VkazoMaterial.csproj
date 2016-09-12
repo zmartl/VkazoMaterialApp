@@ -203,6 +203,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609121306584_Add Foreignkey.cs" />
+    <Compile Include="Migrations\201609121306584_Add Foreignkey.Designer.cs">
+      <DependentUpon>201609121306584_Add Foreignkey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609121330040_Add Foreignkey Material.cs" />
+    <Compile Include="Migrations\201609121330040_Add Foreignkey Material.Designer.cs">
+      <DependentUpon>201609121330040_Add Foreignkey Material.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609121342362_Add Foreignkey UserHasMaterial.cs" />
+    <Compile Include="Migrations\201609121342362_Add Foreignkey UserHasMaterial.Designer.cs">
+      <DependentUpon>201609121342362_Add Foreignkey UserHasMaterial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Rank.cs" />
@@ -278,11 +290,6 @@
     <Content Include="Views\Sizes\Details.cshtml" />
     <Content Include="Views\Sizes\Edit.cshtml" />
     <Content Include="Views\Sizes\Index.cshtml" />
-    <Content Include="Views\Users\Create.cshtml" />
-    <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
-    <Content Include="Views\Users\Edit.cshtml" />
-    <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Materials\Create.cshtml" />
     <Content Include="Views\Materials\Delete.cshtml" />
     <Content Include="Views\Materials\Details.cshtml" />
@@ -298,6 +305,11 @@
     <Content Include="Views\Ranks\Details.cshtml" />
     <Content Include="Views\Ranks\Edit.cshtml" />
     <Content Include="Views\Ranks\Index.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -314,6 +326,15 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201609121306584_Add Foreignkey.resx">
+      <DependentUpon>201609121306584_Add Foreignkey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609121330040_Add Foreignkey Material.resx">
+      <DependentUpon>201609121330040_Add Foreignkey Material.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609121342362_Add Foreignkey UserHasMaterial.resx">
+      <DependentUpon>201609121342362_Add Foreignkey UserHasMaterial.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\AppResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResource.Designer.cs</LastGenOutput>

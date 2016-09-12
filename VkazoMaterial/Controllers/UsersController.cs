@@ -38,7 +38,7 @@ namespace VkazoMaterial.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
-            ViewBag.Rank = new SelectList(db.Grades, "Id", "RankName");
+            ViewBag.RankId = new SelectList(db.Grades, "Id", "RankName");
             return View();
         }
 
@@ -47,15 +47,16 @@ namespace VkazoMaterial.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Contraction,Surname,Name,Rank,IsAuthorized,Rank.Id")] User user)
+        public ActionResult Create([Bind(Include = "Id,Contraction,Surname,Name,RankId,IsAuthorized")] User user)
         {
             if (ModelState.IsValid)
             {
+                user.Rank = db.Grades.Find(user.RankId);
                 db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Rank = new SelectList(db.Grades, "Id", "RankName", user.Rank);
+            ViewBag.RankId = new SelectList(db.Grades, "Id", "RankName", user.Rank.Id);
             return View(user);
         }
 
@@ -71,7 +72,7 @@ namespace VkazoMaterial.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Rank = new SelectList(db.Grades, "Id", "RankName", user.Rank);
+            ViewBag.RankId = new SelectList(db.Grades, "Id", "RankName", user.Rank.Id);
             return View(user);
         }
 
@@ -80,15 +81,16 @@ namespace VkazoMaterial.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Contraction,Surname,Name,Rank,IsAuthorized")] User user)
+        public ActionResult Edit([Bind(Include = "Id,Contraction,Surname,Name,RankId,IsAuthorized")] User user)
         {
             if (ModelState.IsValid)
             {
+                user.Rank = db.Grades.Find(user.RankId);
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Rank = new SelectList(db.Grades, "Id", "RankName", user.Rank);
+            ViewBag.RankId = new SelectList(db.Grades, "Id", "RankName", user.Rank.Id);
             return View(user);
         }
 

@@ -24,6 +24,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Rank.RankName)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsAuthorized)
+        </th>
         <th></th>
     </tr>
 
@@ -40,6 +43,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Rank.RankName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsAuthorized)
         </td>
         <td>
             @Html.ActionLink(AppResource.Edit, "Edit", new { id=item.Id }) |

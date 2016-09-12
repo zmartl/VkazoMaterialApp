@@ -7,6 +7,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script type="text/javascript" src='@Url.Content("~/Scripts/jquery-1.10.2.min.js")'></script>
 
     <script type="text/javascript">
         var appInsights=window.appInsights||function(config){
@@ -38,10 +39,11 @@
                             <li>@Html.ActionLink("Rang", "Index", "Ranks")</li>
                             <li>@Html.ActionLink("Benutzer", "Index", "Users")</li>
                             <li role="separator" class="divider"></li>
-                            <li>@Html.ActionLink("Grössen", "Index", "Sizes")</li>                            
+                            <li>@Html.ActionLink("Grössen", "Index", "Sizes")</li>
                         </ul>
                     </li>
-                    
+                    <li>@Html.ActionLink("Material", "Index", "Materials")</li>
+                    <li>@Html.ActionLink("Materialverwaltung", "Index", "UserHasMaterials")</li>
                 </ul>
             </div>
         </div>
@@ -56,6 +58,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    
     @RenderSection("scripts", required: false)
 </body>
 </html>
