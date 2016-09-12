@@ -50,9 +50,14 @@ namespace VkazoMaterial.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Sizes.Add(size);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (db.Sizes.Count(entity => entity.Description == size.Description) == 0)
+                {
+                    size.Description = size.Description.ToUpper();
+                    db.Sizes.Add(size);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.AlreadyExist = true;
             }
 
             return View(size);
@@ -82,9 +87,14 @@ namespace VkazoMaterial.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(size).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (db.Sizes.Where(entity => entity.Id != size.Id).Count(entity => entity.Description == size.Description) == 0)
+                {
+                    size.Description = size.Description.ToUpper();
+                    db.Entry(size).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.AlreadyExist = true;
             }
             return View(size);
         }

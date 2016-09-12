@@ -1,13 +1,14 @@
-﻿@model IEnumerable<VkazoMaterial.Models.User>
+﻿@using VkazoMaterial.Resources
+@model IEnumerable<VkazoMaterial.Models.User>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Benutzer";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink(AppResource.Create, "Create")
 </p>
 <table class="table">
     <tr>
@@ -21,7 +22,7 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsAuthorized)
+            @Html.DisplayNameFor(model => model.Rank.RankName)
         </th>
         <th></th>
     </tr>
@@ -38,12 +39,12 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IsAuthorized)
+            @Html.DisplayFor(modelItem => item.Rank.RankName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink(AppResource.Edit, "Edit", new { id=item.Id }) |
+            @Html.ActionLink(AppResource.Details, "Details", new { id=item.Id }) |
+            @Html.ActionLink(AppResource.Delete, "Delete", new { id=item.Id })
         </td>
     </tr>
 }

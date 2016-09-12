@@ -2,14 +2,13 @@
 @using VkazoMaterial.Resources
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Grösse löschen";
 }
 
-<h2>Delete</h2>
+<h2>@ViewBag.Title</h2>
 
 <h3>@AppResource.ConfirmDelete</h3>
 <div>
-    <h4>Size</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -27,7 +26,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink(AppResource.BackToList, "Index")
         </div>
     }
 </div>

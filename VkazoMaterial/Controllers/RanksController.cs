@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
+
 using VkazoMaterial.Models;
 
 namespace VkazoMaterial.Controllers
 {
     public class RanksController : Controller
     {
-        private VkazoMaterialDbContext db = new VkazoMaterialDbContext();
+        private readonly VkazoMaterialDbContext db = new VkazoMaterialDbContext();
 
         // GET: Ranks
         public ActionResult Index()
@@ -27,7 +24,7 @@ namespace VkazoMaterial.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Rank rank = db.Grades.Find(id);
+            var rank = db.Grades.Find(id);
             if (rank == null)
             {
                 return HttpNotFound();
@@ -50,9 +47,13 @@ namespace VkazoMaterial.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Grades.Add(rank);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (db.Grades.Count(entity => entity.RankName.Equals(rank.RankName)) == 0)
+                {
+                    db.Grades.Add(rank);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.AlreadyExist = true;
             }
 
             return View(rank);
@@ -65,7 +66,7 @@ namespace VkazoMaterial.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Rank rank = db.Grades.Find(id);
+            var rank = db.Grades.Find(id);
             if (rank == null)
             {
                 return HttpNotFound();
@@ -82,9 +83,13 @@ namespace VkazoMaterial.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(rank).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (db.Grades.Where(entity => entity.Id != rank.Id).Count(entity => entity.RankName == rank.RankName) == 0)
+                {
+                    db.Entry(rank).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.AlreadyExist = true;
             }
             return View(rank);
         }
@@ -96,7 +101,7 @@ namespace VkazoMaterial.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Rank rank = db.Grades.Find(id);
+            var rank = db.Grades.Find(id);
             if (rank == null)
             {
                 return HttpNotFound();
@@ -109,7 +114,7 @@ namespace VkazoMaterial.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Rank rank = db.Grades.Find(id);
+            var rank = db.Grades.Find(id);
             db.Grades.Remove(rank);
             db.SaveChanges();
             return RedirectToAction("Index");

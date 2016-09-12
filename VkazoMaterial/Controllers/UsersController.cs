@@ -38,6 +38,7 @@ namespace VkazoMaterial.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
+            ViewBag.Rank = new SelectList(db.Grades, "Id", "RankName");
             return View();
         }
 
@@ -46,7 +47,7 @@ namespace VkazoMaterial.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Contraction,Surname,Name,IsAuthorized")] User user)
+        public ActionResult Create([Bind(Include = "Id,Contraction,Surname,Name,Rank,IsAuthorized,Rank.Id")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -54,7 +55,7 @@ namespace VkazoMaterial.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.Rank = new SelectList(db.Grades, "Id", "RankName", user.Rank);
             return View(user);
         }
 
@@ -70,6 +71,7 @@ namespace VkazoMaterial.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Rank = new SelectList(db.Grades, "Id", "RankName", user.Rank);
             return View(user);
         }
 
@@ -78,7 +80,7 @@ namespace VkazoMaterial.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Contraction,Surname,Name,IsAuthorized")] User user)
+        public ActionResult Edit([Bind(Include = "Id,Contraction,Surname,Name,Rank,IsAuthorized")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +88,7 @@ namespace VkazoMaterial.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.Rank = new SelectList(db.Grades, "Id", "RankName", user.Rank);
             return View(user);
         }
 
