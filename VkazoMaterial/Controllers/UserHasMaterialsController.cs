@@ -15,8 +15,19 @@ namespace VkazoMaterial.Controllers
         private VkazoMaterialDbContext db = new VkazoMaterialDbContext();
 
         // GET: UserHasMaterials
+        //public ActionResult Index()
+        //{
+        //    return View(db.UserHasMaterials.ToList());
+        //}
+
+        // GET: UserHasMaterials Search
         public ActionResult Index()
         {
+            var searchTerm = Request.QueryString("filter");
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                return View(db.UserHasMaterials.ToList().Where(entity => entity.User.Contraction == searchTerm));
+            }
             return View(db.UserHasMaterials.ToList());
         }
 
