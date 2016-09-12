@@ -39,7 +39,7 @@ namespace VkazoMaterial.Controllers
         public ActionResult Create()
         {
             ViewBag.UserId = new SelectList(db.Users, "Id", "Contraction");
-            ViewBag.MaterialId = new SelectList(db.Materials, "Id", "Serialnumber");
+            ViewBag.MaterialId = new SelectList(db.Materials.Where(entity => !db.UserHasMaterials.Select(b => b.MaterialId).Contains(entity.Id)), "Id", "Serialnumber");
             return View();
         }
 
@@ -48,18 +48,19 @@ namespace VkazoMaterial.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ReceiveDate")] UserHasMaterial userHasMaterial)
+        public ActionResult Create([Bind(Include = "Id,ReceiveDate,UserId,MaterialId")] UserHasMaterial userHasMaterial)
         {
             if (ModelState.IsValid)
             {
                 userHasMaterial.Material = db.Materials.Find(userHasMaterial.MaterialId);
+                db.SaveChanges();
                 userHasMaterial.User = db.Users.Find(userHasMaterial.UserId);
                 db.UserHasMaterials.Add(userHasMaterial);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.UserId = new SelectList(db.Users, "Id", "Contraction", userHasMaterial.User.Id);
-            ViewBag.MaterialId = new SelectList(db.Grades, "Id", "Serialnumber", userHasMaterial.Material.Id);
+            ViewBag.MaterialId = new SelectList(db.Materials.Where(entity => !db.UserHasMaterials.Select(b => b.MaterialId).Contains(entity.Id)), "Id", "Serialnumber");
             return View(userHasMaterial);
         }
 
@@ -76,7 +77,7 @@ namespace VkazoMaterial.Controllers
                 return HttpNotFound();
             }
             ViewBag.UserId = new SelectList(db.Users, "Id", "Contraction", userHasMaterial.User.Id);
-            ViewBag.MaterialId = new SelectList(db.Grades, "Id", "Serialnumber", userHasMaterial.Material.Id);
+            ViewBag.MaterialId = new SelectList(db.Materials.Where(entity => !db.UserHasMaterials.Select(b => b.MaterialId).Contains(entity.Id)), "Id", "Serialnumber");
             return View(userHasMaterial);
         }
 
@@ -85,7 +86,7 @@ namespace VkazoMaterial.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ReceiveDate")] UserHasMaterial userHasMaterial)
+        public ActionResult Edit([Bind(Include = "Id,ReceiveDate,UserId,MaterialId")] UserHasMaterial userHasMaterial)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +97,7 @@ namespace VkazoMaterial.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.UserId = new SelectList(db.Users, "Id", "Contraction", userHasMaterial.User.Id);
-            ViewBag.MaterialId = new SelectList(db.Grades, "Id", "Serialnumber", userHasMaterial.Material.Id);
+            ViewBag.MaterialId = new SelectList(db.Materials.Where(entity => !db.UserHasMaterials.Select(b => b.MaterialId).Contains(entity.Id)), "Id", "Serialnumber");
             return View(userHasMaterial);
         }
 

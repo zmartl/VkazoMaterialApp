@@ -1,15 +1,71 @@
-﻿@model VkazoMaterial.Models.UserHasMaterial
+﻿@using VkazoMaterial.Resources
+@model VkazoMaterial.Models.UserHasMaterial
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>@ViewBag.Title</h2>
 
 <div>
-    <h4>UserHasMaterial</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Rank.RankName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Rank.RankName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Contraction)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Contraction)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Surname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Material.SerialNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Material.SerialNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Material.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Material.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Material.Size.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Material.Size.Description)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.ReceiveDate)
         </dt>
@@ -21,6 +77,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink(AppResource.Edit, "Edit", new { id = Model.Id }) |
+    @Html.ActionLink(AppResource.BackToList, "Index")
 </p>

@@ -1,16 +1,29 @@
-﻿@model IEnumerable<VkazoMaterial.Models.UserHasMaterial>
+﻿@using VkazoMaterial.Resources
+@model IEnumerable<VkazoMaterial.Models.UserHasMaterial>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Materialverwaltung";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink(AppResource.Create, "Create")
 </p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Contraction)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Material.SerialNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Material.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Material.Size.Description)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.ReceiveDate)
         </th>
@@ -20,12 +33,24 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.User.Contraction)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Material.SerialNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Material.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Material.Size.Description)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.ReceiveDate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink(AppResource.Edit, "Edit", new { id=item.Id }) |
+            @Html.ActionLink(AppResource.Details, "Details", new { id=item.Id }) |
+            @Html.ActionLink(AppResource.Delete, "Delete", new { id=item.Id })
         </td>
     </tr>
 }
