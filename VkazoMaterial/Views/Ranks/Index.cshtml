@@ -1,18 +1,19 @@
 ﻿@model IEnumerable<VkazoMaterial.Models.Rank>
+@using VkazoMaterial.Resources
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Ränge";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Neuer Rang", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.RankName)
+            Rang
         </th>
         <th></th>
     </tr>
@@ -23,9 +24,9 @@
             @Html.DisplayFor(modelItem => item.RankName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink(AppResource.Edit, "Edit", new { id=item.Id }) |
+            @Html.ActionLink(AppResource.Details, "Details", new { id=item.Id }) |
+            @Html.ActionLink(AppResource.Delete, "Delete", new { id=item.Id })
         </td>
     </tr>
 }
